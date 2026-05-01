@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <!--
   Operation Elevation SBC — Temporary Landing Page
-  Version: 0.6.1
-  Date: 2026-05-01 | 11:55 GMT
+  Version: 0.7.0
+  Date: 2026-05-01 | 12:14 GMT
   Author: John Lenker (with Claude)
   Status: Draft
 
@@ -18,6 +19,11 @@
     - PR Newswire URL for the May 1 release (search for: PR-NEWSWIRE-URL-PLACEHOLDER)
 
   Revision history:
+    0.7.0  Active section highlighting in the nav. IntersectionObserver tracks
+           each section as the page scrolls; the nav link pointing to the
+           current section gets `is-active` (full-bright color plus a soft
+           underline). Falls back gracefully on browsers without
+           IntersectionObserver (no error, no highlight).
     0.6.1  Updated the AC origin token (`or` hidden field) to match the
            simplified email-only form variant on the AC side. Old token
            pointed at the original two-field version of the form.
@@ -276,9 +282,17 @@
       letter-spacing: 0.02em;
       color: var(--light-secondary);
       border: none;
+      padding-bottom: 4px;
+      border-bottom: 1px solid transparent;
+      transition: color 180ms ease, border-bottom-color 180ms ease;
     }
 
     .site-nav a:hover { color: var(--light-primary); }
+
+    .site-nav a.is-active {
+      color: var(--light-primary);
+      border-bottom-color: var(--light-primary);
+    }
 
     /* ========================================================================
        Opening
@@ -1273,6 +1287,79 @@
       </div>
     </div>
   </footer>
+
+  <!-- =====================================================================
+       NAV ACTIVE-SECTION HIGHLIGHTING
+       IntersectionObserver watches each section. When a section's top edge
+       crosses into the upper portion of the viewport (just below the sticky
+       header), the corresponding nav link gets `.is-active`. Only one link
+       is active at a time. Falls back gracefully on browsers that lack
+       IntersectionObserver (no error, no highlight).
+       ===================================================================== -->
+  <script>
+    (function() {
+      if (!('IntersectionObserver' in window)) return;
+
+      var navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+      if (navLinks.length === 0) return;
+
+      // Map each section ID to its nav link
+      var linkBySectionId = {};
+      navLinks.forEach(function(link) {
+        var id = link.getAttribute('href').slice(1);
+        if (id) linkBySectionId[id] = link;
+      });
+
+      var sections = [];
+      Object.keys(linkBySectionId).forEach(function(id) {
+        var section = document.getElementById(id);
+        if (section) sections.push(section);
+      });
+
+      if (sections.length === 0) return;
+
+      var setActive = function(id) {
+        navLinks.forEach(function(link) { link.classList.remove('is-active'); });
+        if (id && linkBySectionId[id]) {
+          linkBySectionId[id].classList.add('is-active');
+        }
+      };
+
+      // Track which sections are currently intersecting the active band
+      var visible = {};
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            visible[entry.target.id] = entry.intersectionRatio;
+          } else {
+            delete visible[entry.target.id];
+          }
+        });
+
+        // Pick the visible section with the highest intersection ratio.
+        // Ties broken by document order (the first one wins).
+        var bestId = null;
+        var bestRatio = -1;
+        sections.forEach(function(section) {
+          if (visible[section.id] !== undefined && visible[section.id] > bestRatio) {
+            bestRatio = visible[section.id];
+            bestId = section.id;
+          }
+        });
+
+        setActive(bestId);
+      }, {
+        // The "active band" is the strip of viewport between the sticky
+        // header and roughly the lower-middle of the page. A section
+        // counts as current when its content sits inside this band.
+        rootMargin: '-72px 0px -55% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
+      });
+
+      sections.forEach(function(section) { observer.observe(section); });
+    })();
+  </script>
 
   <!-- =====================================================================
        SIGNUP FORM HANDLER
