@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
   Operation Elevation SBC — Temporary Landing Page
-  Version: 0.8.1
-  Date: 2026-05-01 | 21:50 GMT
+  Version: 0.8.2
+  Date: 2026-05-01 | 22:02 GMT
   Author: John Lenker (with Claude)
   Status: Draft
 
@@ -16,9 +16,14 @@
   Placeholders to swap in:
     - Kickstarter campaign URL (search this file for: KICKSTARTER-URL-PLACEHOLDER) —
       added when the campaign goes live on May 4, 2026
-    - PR Newswire URL for the May 1 release (search for: PR-NEWSWIRE-URL-PLACEHOLDER)
 
   Revision history:
+    0.8.2  Press release link wired in. The href="#" placeholder on the May 1
+           news card now points to the live PR Newswire URL for "Tony Sanneh
+           Announces New Book and Public Benefit Corporation on his Hall of
+           Fame Day". The PR-NEWSWIRE-URL-PLACEHOLDER comment was removed
+           since the placeholder is now resolved, and the placeholders list
+           in this header was trimmed accordingly.
     0.8.1  Footer entity references corrected to legally accurate Minnesota
            Chapter 304A designation. Copyright line: "Operation Elevation, PBC"
            → "Operation Elevation SBC". Entity disclosure: "Minnesota Public
@@ -1222,8 +1227,7 @@
           <p class="news-card__excerpt">
             Hall of Fame inductee Tony Sanneh announces the July 2026 release of <em>On the Assist</em> alongside the launch of Operation Elevation SBC, a new Minnesota Public Benefit Corporation.
           </p>
-          <!-- PR-NEWSWIRE-URL-PLACEHOLDER — replace href="#" with the actual PR Newswire URL when available -->
-          <a href="#" class="news-card__link" target="_blank" rel="noopener">
+          <a href="https://www.prnewswire.com/news-releases/tony-sanneh-announces-new-book-and-public-benefit-corporation-on-his-hall-of-fame-day-302760189.html" class="news-card__link" target="_blank" rel="noopener">
             Read on PR Newswire ↗
           </a>
         </article>
