@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
   Operation Elevation SBC — Temporary Landing Page
-  Version: 0.7.3
-  Date: 2026-05-01 | 16:39 GMT
+  Version: 0.8.0
+  Date: 2026-05-01 | 21:40 GMT
   Author: John Lenker (with Claude)
   Status: Draft
 
@@ -14,19 +14,19 @@
     - Source of truth: Operation Elevation Foundation Document v1.4 (2026-04-29).
 
   Placeholders to swap in:
-    - GoFundMe campaign URL (search this file for: GOFUNDME-URL-PLACEHOLDER)
+    - Kickstarter campaign URL (search this file for: KICKSTARTER-URL-PLACEHOLDER) —
+      added when the campaign goes live on May 4, 2026
+    - PR Newswire URL for the May 1 release (search for: PR-NEWSWIRE-URL-PLACEHOLDER)
 
   Revision history:
-    0.7.3  Footer disclosure line updated from "Minnesota Public Benefit
-           Corporation" to "Minnesota Specific Benefit Corporation" — the
-           legal designation under MN Chapter 304A. Public-facing body copy
-           continues to use "Public Benefit Corporation" for general
-           audience clarity. The footer is the legal disclosure spot;
-           accessible language stays in the body.
-    0.7.2  Footer copyright line corrected from "Operation Elevation, PBC" to
-           "Operation Elevation SBC" to match the entity name used elsewhere.
-    0.7.1  Wired the live PR Newswire URL into the May 1 release card and
-           removed the placeholder reference from the documentation block.
+    0.8.0  Campaign section converted from GoFundMe to Kickstarter, with the CTA
+           button replaced by a launch-date badge ("Launching Monday, May 4, 2026")
+           that mirrors the visual pattern of the .book__release badge in the book
+           section. Section copy rewritten to introduce the Kickstarter campaign
+           with a brief summary of what it funds. Meta description updated. The
+           Kickstarter URL is not yet known; placeholder GOFUNDME-URL-PLACEHOLDER
+           replaced with KICKSTARTER-URL-PLACEHOLDER for when the URL exists and
+           the badge gets swapped for an active CTA in v0.9.0.
     0.7.0  Active section highlighting in the nav. IntersectionObserver tracks
            each section as the page scrolls; the nav link pointing to the
            current section gets `is-active` (full-bright color plus a soft
@@ -654,7 +654,7 @@
     }
 
     /* ========================================================================
-       Campaign — GoFundMe section. Lighter warm gray for spotlight effect.
+       Campaign — Kickstarter section. Lighter warm gray for spotlight effect.
        ======================================================================== */
     .campaign { background: var(--bg-warm-soft); }
 
@@ -681,6 +681,21 @@
       font-size: 1.02rem;
       line-height: 1.6;
       text-align: left;
+    }
+
+    /* Launch-date badge. Visual pattern mirrors .book__release in the book
+       section. Used while the Kickstarter URL is not yet live; once the
+       campaign is open, this can be swapped for or supplemented with a
+       .campaign__cta button. */
+    .campaign__launch-date {
+      display: inline-block;
+      padding: var(--space-1) var(--space-2);
+      border: 1px solid var(--line-on-light-strong);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      font-weight: 600;
     }
 
     .campaign__cta {
@@ -1156,23 +1171,22 @@
   </section>
 
   <!-- =====================================================================
-       CAMPAIGN — GoFundMe
+       CAMPAIGN — Kickstarter
        ===================================================================== -->
   <section class="campaign" id="campaign">
     <div class="container">
       <div class="campaign__card">
-        <p class="eyebrow">GoFundMe Campaign</p>
+        <p class="eyebrow">Kickstarter Campaign</p>
         <h2 class="display display--md campaign__title">
           Help us launch the movement
         </h2>
         <p class="campaign__body">
-          We are running a public campaign to fund the rollout of <em>On the Assist</em> and the early-stage work of Operation Elevation: developing the curriculum, seeding the matchmaking program, and getting the book into the hands of the people best positioned to act on it. Every contribution moves the work forward.
+          We are running a 45-day Kickstarter campaign to fund the launch of <em>On the Assist</em> and the early operational work of Operation Elevation. Backers receive signed first-printing copies, named acknowledgments in the book, and invitations to launch events in July and August. Funds beyond the primary goal extend the matchmaking program pilot and accelerate the curriculum that supports it.
         </p>
-        <!-- GOFUNDME-URL-PLACEHOLDER — replace href="#" with the actual GoFundMe URL when available -->
-        <a href="#" class="campaign__cta" target="_blank" rel="noopener">
-          Support on GoFundMe
-          <span class="campaign__cta-arrow">→</span>
-        </a>
+        <!-- KICKSTARTER-URL-PLACEHOLDER — once the campaign is live on Kickstarter,
+             swap the .campaign__launch-date badge below for a .campaign__cta button
+             pointing to the campaign URL. The badge styling mirrors .book__release. -->
+        <span class="campaign__launch-date">Launching Monday, May 4, 2026</span>
       </div>
     </div>
   </section>
@@ -1199,7 +1213,8 @@
           <p class="news-card__excerpt">
             Hall of Fame inductee Tony Sanneh announces the July 2026 release of <em>On the Assist</em> alongside the launch of Operation Elevation SBC, a new Minnesota Public Benefit Corporation.
           </p>
-          <a href="https://www.prnewswire.com/news-releases/tony-sanneh-announces-new-book-and-public-benefit-corporation-on-his-hall-of-fame-day-302760189.html" class="news-card__link" target="_blank" rel="noopener">
+          <!-- PR-NEWSWIRE-URL-PLACEHOLDER — replace href="#" with the actual PR Newswire URL when available -->
+          <a href="#" class="news-card__link" target="_blank" rel="noopener">
             Read on PR Newswire ↗
           </a>
         </article>
@@ -1286,10 +1301,10 @@
     <div class="container">
       <div class="site-footer__inner">
         <div>
-          © 2026 Operation Elevation SBC. All rights reserved.
+          © 2026 Operation Elevation, PBC. All rights reserved.
         </div>
         <div>
-          A Minnesota Specific Benefit Corporation. Co-founded by Tony Sanneh, John Lenker, and Kevin deLaplante, PhD.
+          A Minnesota Public Benefit Corporation. Co-founded by Tony Sanneh, John Lenker, and Kevin deLaplante, PhD.
         </div>
       </div>
     </div>
